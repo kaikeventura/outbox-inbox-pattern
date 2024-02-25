@@ -6,9 +6,20 @@ import com.kaikeventura.outboxinboxpattern.outbox.database.repository.OutboxRepo
 import com.kaikeventura.outboxinboxpattern.outbox.producer.KafkaProducer
 import com.kaikeventura.outboxinboxpattern.purchase.database.entity.PurchaseOrderEntity
 import com.kaikeventura.outboxinboxpattern.purchase.database.repository.PurchaseOrderRepository
+import jakarta.annotation.PostConstruct
 import jakarta.transaction.Transactional
 import java.time.LocalDateTime.now
 import org.springframework.stereotype.Component
+
+@Component
+class Run(
+    private val newPurchaseUseCase: NewPurchaseUseCase
+) {
+    @PostConstruct
+    fun init() {
+        newPurchaseUseCase.createNewPurchaseOrder()
+    }
+}
 
 @Component
 class NewPurchaseUseCase(
@@ -46,7 +57,7 @@ class NewPurchaseUseCase(
     fun OutboxEntity.markAsProcessed(): OutboxEntity =
         copy(
             processedAt = now()
-        )
+        ).save()
 
     private fun PurchaseOrderEntity.save(): PurchaseOrderEntity =
         purchaseOrderRepository.save(this)
