@@ -22,3 +22,4 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     listener:
       missing-topics-fatal: false
+      ack-mode: MANUAL_IMMEDIATE

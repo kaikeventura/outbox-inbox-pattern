@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 
 const val TOPIC_NAME = "orders"
+const val GROUP_ID = "orders-consumer"
 
 data class KafkaPayload<T>(
     val resource: String,
