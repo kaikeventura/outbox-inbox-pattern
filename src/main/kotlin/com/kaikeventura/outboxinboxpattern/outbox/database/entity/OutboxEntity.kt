@@ -29,7 +29,7 @@ data class OutboxEntity(
 
 fun <T> T.toOutboxEntity(processedAt: LocalDateTime? = null): OutboxEntity =
     OutboxEntity(
-        source = this!!::class.toString(),
+        source = this!!::class.java.name,
         payload = writeJsonString(),
         processedAt = processedAt
     )

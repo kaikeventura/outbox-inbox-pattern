@@ -6,6 +6,11 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 
 const val TOPIC_NAME = "orders"
 
+data class KafkaPayload<T>(
+    val resource: String,
+    val payload: T
+)
+
 open class Mapper {
     companion object {
 

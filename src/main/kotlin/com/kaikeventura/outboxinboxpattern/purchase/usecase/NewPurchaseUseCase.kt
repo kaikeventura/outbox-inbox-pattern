@@ -33,7 +33,7 @@ class NewPurchaseUseCase(
 
         kafkaProducer.send(
             key = purchaseOrder.first.id!!.toString(),
-            payload = purchaseOrder
+            payload = purchaseOrder.first
         )
 
         purchaseOrder.second.markAsProcessed()
