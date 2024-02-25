@@ -17,15 +17,13 @@ class KafkaConsumer {
     fun doMessage(
         record: ConsumerRecord<String, String>,
         acknowledgment: Acknowledgment
-    ) =
-        runCatching {
-            logger.info("Starting to process message: ${record.key()}")
-            logger.info(record.key())
-            logger.info(record.value())
-        }.onSuccess {
-            logger.info("Success to process message: ${record.key()}")
-            acknowledgment.acknowledge()
-        }.onFailure {
-            logger.warn("Error when trying process message: ${record.key()}", it)
-        }
+    ) = runCatching {
+        logger.info("Starting to process message: ${record.key()}")
+        logger.info(record.value())
+    }.onSuccess {
+        logger.info("Success to process message: ${record.key()}")
+        acknowledgment.acknowledge()
+    }.onFailure {
+        logger.warn("Error when trying process message: ${record.key()}", it)
+    }
 }
